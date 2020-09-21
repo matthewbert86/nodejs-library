@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
+// require index router to tell our app to use it
+const indexRouter = require('./routes/index');
+
 // set up view engine with ejs
 app.set('view engine', 'ejs');
 // set where views are coming from
@@ -12,6 +15,9 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 // tell express where public files live
 app.use(express.static('public'));
+
+// use indexRouter
+app.use('/', indexRouter);
 
 // set up server to run on port 3000
 app.listen(process.env.PORT || 3000);
