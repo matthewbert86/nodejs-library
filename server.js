@@ -1,7 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
-
 // require index router to tell our app to use it
 const indexRouter = require('./routes/index');
 
@@ -15,6 +18,17 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 // tell express where public files live
 app.use(express.static('public'));
+
+// Database
+// get values from Database
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('Connected to Mongoose'));
 
 // use indexRouter
 app.use('/', indexRouter);
