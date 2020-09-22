@@ -1,3 +1,4 @@
+// Check to see if we are in production, to connect with mongodb
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -5,8 +6,11 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+
 // require index router to tell our app to use it
 const indexRouter = require('./routes/index');
+// require artists router to tell our app to use it
+const artistsRouter = require('./routes/artists');
 
 // set up view engine with ejs
 app.set('view engine', 'ejs');
@@ -32,6 +36,8 @@ db.once('open', () => console.log('Connected to Mongoose'));
 
 // use indexRouter
 app.use('/', indexRouter);
+// use artistsRouter
+app.use('/artists', artistsRouter);
 
 // set up server to run on port 3000
 app.listen(process.env.PORT || 3000);
