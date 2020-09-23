@@ -2,6 +2,8 @@
 const express = require('express');
 // get router variable
 const router = express.Router();
+// require author
+const Artist = require('../models/artist');
 
 // All artists route
 router.get('/', (req, res) => {
@@ -10,13 +12,25 @@ router.get('/', (req, res) => {
 
 //  New artist route (creates form to add artist)
 router.get('/new', (req, res) => {
-  res.render('artists/new');
+  // pass in variables to new.ejs
+  res.render('artists/new', { artist: new Artist() });
 });
 
-// Create new artist
-// we will use post for creation
-router.post('/', (req, res) => {
-  res.send('Create artist');
+// Create Artist Route
+router.post('/', async (req, res) => {
+  const artist = new Artist({
+    name: req.body.name,
+  });
+  try {
+    const newArtist = await artist.save();
+    // res.redirect(`artists/${newArtist.id}`)
+    res.redirect(`artists`);
+  } catch {
+    res.render('artists/new', {
+      artist: artist,
+      errorMessage: 'Error creating Artist',
+    });
+  }
 });
 
 module.exports = router;

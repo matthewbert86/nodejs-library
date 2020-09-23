@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 
 // require index router to tell our app to use it
 const indexRouter = require('./routes/index');
@@ -22,6 +23,8 @@ app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 // tell express where public files live
 app.use(express.static('public'));
+// tell express how to use body-parser
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
 
 // Database
 // get values from Database
