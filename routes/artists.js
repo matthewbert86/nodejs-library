@@ -6,8 +6,20 @@ const router = express.Router();
 const Artist = require('../models/artist');
 
 // All artists route
-router.get('/', (req, res) => {
-  res.render('artists/index');
+router.get('/', async (req, res) => {
+  let searchOptions = {};
+  if (req.query.name != null && req.query.name !== '') {
+    searchOptions.name = new RegExp(req.query.name, 'i');
+  }
+  try {
+    const artists = await Artist.find(searchOptions);
+    res.render('artists/index', {
+      artists: artists,
+      searchOptions: req.query,
+    });
+  } catch {
+    res.redirect('/');
+  }
 });
 
 //  New artist route (creates form to add artist)
