@@ -1,7 +1,9 @@
-<label>Title</label>
-<input type="text" name="title" value="<%= album.title %>" />
+<div>
+    <label>Title</label>
+    <input type="text" name="title" value="<%= album.title %>" />
+</div>
+<div>
 <!-- Loop through all artists in server for user to select matching Artist -->
-
     <label>Artist</label>
     <select name="artist">
     <% artists.forEach(artist => { %>
@@ -12,5 +14,25 @@
       <% } %>
     <% }) %>
     </select>
- 
+</div>
 
+<div>
+    <label>Release Date</label>
+    <input type="date" name="releaseDate" 
+    value="<%= album.releaseDate  == null ? '' : album.releaseDate.toISOString().split('T')[0] %>"/>
+</div>
+
+<div>
+    <label>Song Count</label>
+    <input type="number" name="songCount" min="1" value="<%= album.songCount %>"/>
+</div>
+
+<div>
+    <label>Cover</label>
+    <input type="file" name="cover"/>
+</div>
+
+<div>
+    <label>Description</label>
+    <textarea name="description"><%= album.description %></textarea>
+</div>
