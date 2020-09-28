@@ -6,12 +6,18 @@ const router = express.Router();
 const Album = require('../models/album');
 
 // All albums route
-router.get('/', async (req, res) => {});
+router.get('/', async (req, res) => {
+  res.send('All Albums');
+});
 
 //  New album route (creates form to add album)
-router.get('/new', (req, res) => {});
+router.get('/new', (req, res) => {
+  res.send('New Album');
+});
 
 // Create album Route
-router.post('/', async (req, res) => {});
+router.post('/', async (req, res) => {
+  res.send('Create Album');
+});
 
 module.exports = router;

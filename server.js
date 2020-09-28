@@ -43,7 +43,7 @@ db.once('open', () => console.log('Connected to Mongoose'));
 app.use('/', indexRouter);
 // use artistsRouter
 app.use('/artists', artistsRouter);
-// use albumssRouter
+// use albumsRouter
 app.use('/albums', albumsRouter);
 
 // set up server to run on port 3000
