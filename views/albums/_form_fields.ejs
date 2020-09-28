@@ -1,0 +1,16 @@
+<label>Title</label>
+<input type="text" name="title" value="<%= album.title %>" />
+<!-- Loop through all artists in server for user to select matching Artist -->
+
+    <label>Artist</label>
+    <select name="artist">
+    <% artists.forEach(artist => { %>
+      <% if (artist.id === album.artist) { %>
+        <option selected label="<%= artist.name %>" value="<%= artist.id %>">
+      <% } else { %>
+        <option label="<%= artist.name %>" value="<%= artist.id %>">
+      <% } %>
+    <% }) %>
+    </select>
+ 
+

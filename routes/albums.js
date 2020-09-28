@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 // require album
 const Album = require('../models/album');
+// require artist
+const Artist = require('../models/artist');
 
 // All albums route
 router.get('/', async (req, res) => {
@@ -11,8 +13,17 @@ router.get('/', async (req, res) => {
 });
 
 //  New album route (creates form to add album)
-router.get('/new', (req, res) => {
-  res.send('New Album');
+router.get('/new', async (req, res) => {
+  try {
+    const artists = await Artist.find({});
+    const album = new Album();
+    res.render('albums/new', {
+      artists: artists,
+      album: album,
+    });
+  } catch (error) {
+    res.redirect('/albums');
+  }
 });
 
 // Create album Route
