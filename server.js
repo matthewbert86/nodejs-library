@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 // require artists router to tell our app to use it
 const artistsRouter = require('./routes/artists');
+// require albums router to tell our app to use it
+const albumsRouter = require('./routes/albums');
 
 // set up view engine with ejs
 app.set('view engine', 'ejs');
@@ -41,6 +43,8 @@ db.once('open', () => console.log('Connected to Mongoose'));
 app.use('/', indexRouter);
 // use artistsRouter
 app.use('/artists', artistsRouter);
+// use albumssRouter
+app.use('/albums', albumsRouter);
 
 // set up server to run on port 3000
 app.listen(process.env.PORT || 3000);
